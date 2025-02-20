@@ -39,7 +39,7 @@
 	<img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
 	<div class="d-flex align-items-start">
-		<a href="/cadastros" class="btn btn-warning ms-4 mt-2 me-1">Voltar</a>
+		<a href="/cadastros" class="btn btn-voltar ms-4 mt-2 me-1">Voltar</a>
 
 		<div class="container mt-2 ms-1">
 			<a class="btn btn-success mb-2" th:href="@{/clientes/new}">
@@ -114,11 +114,11 @@
 							<td>
 								<a class="btn btn-warning btn-sm"
 									th:href="@{/clientes/edit/{id}(id=${cliente.id})}">Editar</a>
-								<a class="btn btn-sm mt-1"
+									<a class="btn btn-status btn-sm mt-1"
 									th:classappend="${cliente.ativo} ? 'btn-danger' : 'btn-success'"
 									th:onclick="'toggleStatus(' + ${cliente.id} + ');'"
 									th:text="${cliente.ativo} ? 'Inativar' : 'Ativar'">
-								</a>
+								</a>								
 							</td>
 						</tr>
 					</tbody>

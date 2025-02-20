@@ -83,3 +83,35 @@ span{
     left: 3%;
     font-size: 35px;
 }
+
+.btn {
+    background-color: var(--botoes) !important;
+    color: var(--texto-botao) !important;
+    border: none !important;
+}
+
+.btn:hover {
+    background-color: #002402 !important; /* Um tom mais escuro no hover */
+}
+
+.btn-voltar {
+    background-color: var(--voltar) !important;
+    color: var(--texto-botao) !important;
+    border: none !important;
+}
+
+.btn-voltar:hover {
+    background-color: #007A36 !important; /* Um tom mais escuro para hover */
+}
+
+
+/* Mantém as cores originais dos botões de ativação/inativação */
+.btn-status.btn-danger {
+    background-color: #dc3545 !important; /* Vermelho Bootstrap */
+    color: var(--texto-botao) !important;
+}
+
+.btn-status.btn-success {
+    background-color: var(--botoes) !important; /* Verde Bootstrap */
+    color: var(--texto-botao) !important;
+}

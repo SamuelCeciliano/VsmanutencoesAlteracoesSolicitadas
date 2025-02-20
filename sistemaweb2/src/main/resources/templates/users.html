@@ -37,7 +37,7 @@
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="d-flex align-items-start">
-        <a href="/cadastros" class="btn btn-warning ms-4 mt-2 me-1">Voltar</a>
+        <a href="/cadastros" class="btn btn-voltar ms-4 mt-2 me-1">Voltar</a>
 
         <div class="container mt-2 ms-1">
             <a class="btn btn-success mb-4" th:href="@{/users/new}"><i class="fas fa-plus-circle"></i> Novo Usuário</a>
@@ -97,10 +97,12 @@
                             <td>
                                 <a class="btn btn-warning btn-sm"
                                     th:href="@{/users/edit/{id}(id=${user.id})}">Editar</a>
-                                <a class="btn btn-sm ms-2" th:classappend="${user.ativo} ? 'btn-danger' : 'btn-success'"
-                                    th:attr="onclick=|toggleUserStatus(${user.id})|"
+                                <a class="btn btn-status btn-sm"
+                                    th:classappend="${user.ativo} ? 'btn-danger' : 'btn-success'"
+                                    th:onclick="'toggleUserStatus(' + ${user.id} + ');'"
                                     th:text="${user.ativo} ? 'Inativar' : 'Ativar'">
                                 </a>
+
                             </td>
                         </tr>
                     </tbody>
