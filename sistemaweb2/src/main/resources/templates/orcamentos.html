@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Orçamentos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="/css/orcamentos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <!-- Cabeçalho -->
+        <div class="header d-flex justify-content-between align-items-center">
+
+            <a href="/home">
+                <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
+            </a>
+
+            <h2 class="titulo">Lista de Orçamentos</h2>
+
+            <div class="user-actions">
+
+                <div class="username"><span th:text="${username}"></span></div>
+
+                <a href="/logout">
+                    <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
+
+                    <div class="logout-text">
+                        <span>Logout</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="horasMes titulo">
+                <span class="textHora">Valor da hora no mês: </span>
+                <span class="valorHora">60 R$</span>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Botão de Voltar -->
+    <a href="/home" class="return"><i class="bi bi-arrow-return-left"></i></a>
+    
+    <!--Imagem do fundo-->
+    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+
+    <div class="container mt-2">
+        <a class="btn btn-success mb-4" th:href="@{/orcamentos/new}"><i class="fas fa-plus-circle"></i> Novo
+            Orçamento</a>
+
+        <div class="container mt-2">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5><span id="valorHora"></span></h5>
+                <button class="btn btn-primary" onclick="mostrarModal()">Alterar Valor Hora</button>
+            </div>
+
+            <!-- Modal para Alteração -->
+            <div id="modalAlterarValor" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alterar Valor da Hora</h5>
+                            <button type="button" class="btn-close" onclick="fecharModal()"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="novoValor">Novo Valor (R$):</label>
+                            <input type="number" id="novoValor" class="form-control" placeholder="Digite o novo valor">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+                            <button type="button" class="btn btn-success" onclick="atualizarValor()">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Status</th>
+                    <th>Data de Criação</th>
+                    <th>Valor Total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="orcamento : ${orcamentos}">
+                    <td th:text="${orcamento.id}"></td>
+                    <td th:text="${orcamento.cliente.nome}"></td>
+                    <td th:text="${orcamento.status}"></td>
+                    <td th:text="${orcamento.dataCriacao}"></td>
+                    <td th:text="${orcamento.valorTotal}"></td>
+                    <td>
+                        <a th:href="@{/orcamentos/{id}(id=${orcamento.id})}" class="btn btn-info">Ver Detalhes</a>
+                        <a th:href="@{/orcamentos/edit/{id}(id=${orcamento.id})}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/orcamentos/delete/{id}(id=${orcamento.id})}" class="btn btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    function mostrarModal() {
+        document.getElementById("modalAlterarValor").style.display = "block";
+    }
+
+    function fecharModal() {
+        document.getElementById("modalAlterarValor").style.display = "none";
+    }
+
+    function atualizarValor() {
+        const novoValor = document.getElementById("novoValor").value;
+        if (novoValor) {
+            // Envia o valor para o back-end usando fetch (exemplo)
+            fetch('/atualizar-valor-hora', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ valorHora: novoValor })
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById("valorHora").textContent = `${novoValor} R$`;
+                    fecharModal();
+                } else {
+                    alert("Erro ao atualizar o valor.");
+                }
+            }).catch(error => {
+                console.error("Erro:", error);
+                alert("Erro ao conectar com o servidor.");
+            });
+        } else {
+            alert("Por favor, insira um valor válido.");
+        }
+    }
+
+    function atualizarValor() {
+        const novoValor = document.getElementById("novoValor").value;
+
+        // Obtenha o token CSRF da página (Spring o insere automaticamente em páginas renderizadas)
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        if (novoValor) {
+            fetch('/orcamentos/atualizar-valor-hora', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    [csrfHeader]: csrfToken // Inclua o token CSRF no cabeçalho
+                },
+                body: JSON.stringify({ valorHora: novoValor })
+            }).then(response => {
+                if (response.ok) {
+                    response.text().then(message => {
+                        alert(message);
+                        document.getElementById("valorHora").textContent = `${novoValor} R$`;
+                        fecharModal();
+                    });
+                } else {
+                    response.text().then(error => {
+                        alert(`Erro: ${error}`);
+                    });
+                }
+            }).catch(error => {
+                console.error("Erro:", error);
+                alert("Erro ao conectar com o servidor.");
+            });
+        } else {
+            alert("Por favor, insira um valor válido.");
+        }
+    }
+</script>
+
+</html>
