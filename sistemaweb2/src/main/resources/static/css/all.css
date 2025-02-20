@@ -1,7 +1,10 @@
+@import url('vars.css');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: var(--cor-texto);
 }
 
 html,
@@ -24,7 +27,6 @@ header {
 
 .user-actions a{
     text-decoration: none; 
-    color: darkblue;
 }
 
 .perfil{
@@ -39,7 +41,6 @@ header {
     font-size: 15px;
     position: absolute; 
     right: 30px;
-    color: rgb(149, 0, 0);
 }
 
 .logout-text:hover{
@@ -56,14 +57,12 @@ span{
 }
 
 .username {
-    color: darkblue;
     position: absolute;
     right: 8%;
     top: 3%;
 }
 
 .titulo{
-    color: darkblue;
     padding-top: 10px;
     transform: translate(0, 45%);
 }
@@ -83,5 +82,4 @@ span{
     top: 18%;
     left: 3%;
     font-size: 35px;
-    color: darkblue;
 }

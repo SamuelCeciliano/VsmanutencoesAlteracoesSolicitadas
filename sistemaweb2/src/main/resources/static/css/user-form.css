@@ -16,3 +16,8 @@ select:focus + .dropdown-icon,
 select:active + .dropdown-icon {
     transform: translateY(-50%) rotate(-90deg);
 }
+
+input::placeholder, textarea::placeholder {
+    color: var(--cor-texto) !important;
+    opacity: 0.7 !important;
+}
