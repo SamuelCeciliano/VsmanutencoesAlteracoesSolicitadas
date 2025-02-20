@@ -57,11 +57,12 @@ public class ServicoController {
     }
 
     @PostMapping("/save")
-    public String salvarEquipamento(@ModelAttribute("servico") Servico servico,
-                                     @RequestParam List<Long> materialIds) {
-        List<Material> materiaisSelecionados = materialService.buscarMateriaisPorIds(materialIds);
+    public String salvarEquipamento(@ModelAttribute("servico") Servico servico
+                                     //,@RequestParam List<Long> materialIds
+                                ) {
+        /*List<Material> materiaisSelecionados = materialService.buscarMateriaisPorIds(materialIds);
         
-        servico.setMateriais(materiaisSelecionados);
+        servico.setMateriais(materiaisSelecionados);*/
         
         servicoService.salvarServico(servico);
         return "redirect:/servicos";
@@ -74,7 +75,7 @@ public class ServicoController {
         model.addAttribute("username", username);
     	Servico servico = servicoService.buscarServicoPorId(id);
     	model.addAttribute("servico", servico);
-    	model.addAttribute("materiais", materialService.listarTodosMateriais());
+    	//model.addAttribute("materiais", materialService.listarTodosMateriais());
     	return "/servico-form";
     }
 

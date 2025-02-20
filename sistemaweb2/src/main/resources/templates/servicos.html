@@ -83,7 +83,8 @@
                 <tr>
                     <th>Id</th>
                     <th>Nome</th>
-                    <th>Materiais</th>
+                    <!--<th>Materiais</th>-->
+                    <th>Valor do Serviço</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -91,10 +92,13 @@
                 <tr th:each="servico : ${servicos}">
                     <td th:text="${servico.id}"></td>
                     <td th:text="${servico.nome}"></td>
-                    <td>
+                    <!--<td>
                         <ul>
                             <li th:each="material : ${servico.materiais}" th:text="${material.nome}"></li>
                         </ul>
+                    </td>-->
+                    <td>
+                            R$ 0,0
                     </td>
                     <td>
                         <a class="btn btn-warning btn-sm" th:href="@{/servicos/edit/{id}(id=${servico.id})}">Editar</a>

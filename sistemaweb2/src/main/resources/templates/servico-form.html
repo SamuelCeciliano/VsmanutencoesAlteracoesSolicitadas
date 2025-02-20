@@ -53,6 +53,13 @@
                 <input type="text" th:field="*{nome}" class="form-control" name="nome" placeholder="Nome do Serviço"
                     required>
             </div>
+
+            <div class="form-group">
+                    <label for="valorUnitario" class="form-label">Valor do Serviço R$</label>
+                    <input type="number" step="0.01" id="valorUnitario" th:field="*{valorServico}"
+                        class="form-control" placeholder="Valor R$" />
+            </div>
+            <!--
             <div class="mb-3">
                 <label for="materiais" class="form-label">Materiais Utilizados</label>
                 <select id="materiais" name="materialIds" class="form-select" multiple>
@@ -62,6 +69,7 @@
                 <small class="form-text text-muted">Segure CTRL (ou CMD no Mac) para selecionar múltiplos
                     materiais.</small>
             </div>
+            -->
             <button type="submit" class="btn btn-primary">Salvar Serviço</button>
             <a class="btn btn-secondary" th:href="@{/servicos}">Cancelar</a>
         </form>

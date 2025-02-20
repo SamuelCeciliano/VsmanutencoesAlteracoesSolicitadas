@@ -37,7 +37,7 @@ public class ServicoService {
     public Servico atualizarServico(Long id, Servico servicoAtualizado) {
         Servico servico = buscarServicoPorId(id);
         servico.setNome(servicoAtualizado.getNome());
-        servico.setMateriais(servicoAtualizado.getMateriais());
+        //servico.setMateriais(servicoAtualizado.getMateriais());
         return servicoRepositorio.save(servico);
     }
     

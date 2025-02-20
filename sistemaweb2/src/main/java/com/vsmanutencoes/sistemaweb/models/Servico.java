@@ -1,12 +1,12 @@
 package com.vsmanutencoes.sistemaweb.models;
 
-import java.util.List;
+//import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+//import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,12 +16,19 @@ public class Servico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private double valorServico;
+    public double getValorServico() {
+		return valorServico;
+	}
+
+	public void setValorServico(double valorServico) {
+		this.valorServico = valorServico;
+	}
+	private String nome;
     
-    private String nome;
-    
-    @ManyToMany
+    /*@ManyToMany
     private List<Material> materiais;
-    
+    */
 	public Servico() {
 		super();
 	}
@@ -38,10 +45,13 @@ public class Servico {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	/* 
 	public List<Material> getMateriais() {
 		return materiais;
 	}
+
 	public void setMateriais(List<Material> materiais) {
 		this.materiais = materiais;
 	}
+	*/
 }
