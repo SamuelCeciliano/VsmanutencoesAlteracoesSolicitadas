@@ -1,7 +1,7 @@
 package com.vsmanutencoes.sistemaweb.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+//import lombok.Data;
 
 @Entity
 public class Users {

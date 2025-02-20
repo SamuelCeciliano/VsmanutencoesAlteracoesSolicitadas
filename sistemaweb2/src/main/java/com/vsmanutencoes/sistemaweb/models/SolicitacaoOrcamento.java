@@ -16,7 +16,7 @@ public class SolicitacaoOrcamento {
     private Long id;
 
     @NotEmpty(message = "A descrição é obrigatória")
-    private String descricao;
+    private String descricao; //Mesmo que Observação
 
     @ManyToMany
     private List<Equipamento> equipamentos;
