@@ -40,12 +40,11 @@
             </div>
         </div>
     </header>
-    
+
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
     <div class="container mt-5">
-        <h2 th:text="${orcamento.id == null ? 'Criar Novo Orçamento' : 'Editar Orçamento'}"></h2>
         <form th:action="@{/orcamentos/save}" th:object="${orcamento}" method="POST">
             <!-- Campo oculto para ID -->
             <input type="hidden" th:field="*{id}">
@@ -81,8 +80,27 @@
             </div>
             <button id="enviarEmailBtn" class="btn btn-success">Salvar e Enviar E-mail</button>
             <a th:href="@{/orcamentos}" class="btn btn-secondary">Cancelar</a>
+            <button id="enviarOsBtn" class="btn btn-primary" style="display: none;">Enviar OS</button>
         </form>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const statusSelect = document.getElementById("status");
+            const enviarOsBtn = document.getElementById("enviarOsBtn");
+
+            function verificarStatus() {
+                if (statusSelect.value === "APROVADA") {
+                    enviarOsBtn.style.display = "inline-block";
+                } else {
+                    enviarOsBtn.style.display = "none";
+                }
+            }
+
+            statusSelect.addEventListener("change", verificarStatus);
+            verificarStatus(); // Chamar ao carregar a página
+        });
+    </script>
 </body>
 
 </html>
