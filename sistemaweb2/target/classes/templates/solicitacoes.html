@@ -39,105 +39,108 @@
         </div>
     </header>
 
-    <!-- Botão de Voltar -->
-    <a href="/home" class="return"><i class="bi bi-arrow-return-left"></i></a>
-
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-    <div class="container mt-2">
+    <div class="d-flex align-items-start">
+        <!-- Botão de Voltar -->
+        <a href="/home" class="btn btn-warning ms-4 mt-2 me-1">Voltar</a>
 
-        <a class="btn btn-success mb-2" th:href="@{/solicitacoes/new}"><i class="fas fa-plus-circle"></i> Nova
-            Solicitação</a>
+        <div class="container mt-1 ms-1">
 
-        <form method="get" action="/solicitacoes" class="row g-3 mb-3">
-            <div class="col-md-3">
-                <label for="nome" class="form-label">Nome do Cliente</label>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Cliente"
-                    th:value="${param.nome}">
+            <a class="btn btn-success mb-2" th:href="@{/solicitacoes/new}"><i class="fas fa-plus-circle"></i> Nova
+                Solicitação</a>
+
+            <form method="get" action="/solicitacoes" class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label for="nome" class="form-label">Nome do Cliente</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Cliente"
+                        th:value="${param.nome}">
+                </div>
+                <div class="col-md-2">
+                    <label for="empresa" class="form-label">Empresa</label>
+                    <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa"
+                        th:value="${param.empresa}">
+                </div>
+                <div class="col-md-2">
+                    <label for="cnpj" class="form-label">CNPJ</label>
+                    <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="CNPJ"
+                        th:value="${param.cnpj}">
+                </div>
+                <div class="col-md-2">
+                    <label for="equipamento" class="form-label">Equipamento</label>
+                    <input type="text" class="form-control" id="equipamento" name="equipamento"
+                        placeholder="Equipamento" th:value="${param.equipamento}">
+                </div>
+                <div class="col-md-2">
+                    <label for="data" class="form-label">Data</label>
+                    <input type="date" class="form-control" id="data" name="data" th:value="${param.data}">
+                </div>
+                <div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.48%;">
+                    <button type="submit"
+                        class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-filter me-2"></i> Filtrar
+                    </button>
+                    <a href="/solicitacoes"
+                        class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-times me-2"></i> Limpar
+                    </a>
+                </div>
+            </form>
+
+
+            <div class="container m-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome do Cliente</th>
+                            <th>Empresa</th>
+                            <th>CNPJ</th>
+                            <th>Equipamento(s)</th>
+                            <th>Motivo</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Valor Total</th> <!-- Nova Coluna -->
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="solicitacao : ${solicitacoes}">
+                            <!-- Nome do Cliente -->
+                            <td th:text="${solicitacao.cliente.nome}">Nome do Cliente</td>
+                            <td th:text="${solicitacao.cliente.empresa}">Empresa</td>
+                            <td th:text="${solicitacao.cliente.cnpjCpf}">CNPJ</td>
+
+                            <!-- Equipamentos -->
+                            <td>
+                                <span th:each="equipamento : ${solicitacao.equipamentos}" th:text="${equipamento.nome}"
+                                    class="d-block"></span>
+                            </td>
+
+                            <!-- Descrição -->
+                            <td th:text="${solicitacao.descricao}">Descrição</td>
+
+                            <!-- Data e Hora -->
+                            <td th:text="${solicitacao.data}">Data</td>
+                            <td th:text="${solicitacao.hora}">Hora</td>
+
+                            <!-- Valor Total -->
+                            <td th:text="${#numbers.formatCurrency(solicitacao.valorTotal)}">Valor Total</td>
+                            <!-- Exibe o valor total -->
+
+                            <!-- Ações -->
+                            <td>
+                                <a th:href="@{/solicitacoes/edit/{id}(id=${solicitacao.id})}"
+                                    class="btn btn-warning btn-sm">Editar</a>
+                                <a th:href="@{/solicitacoes/delete/{id}(id=${solicitacao.id})}"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                                <a href="/home" class="btn btn-info btn-sm">Abrir Orçamento</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-md-2">
-                <label for="empresa" class="form-label">Empresa</label>
-                <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa"
-                    th:value="${param.empresa}">
-            </div>
-            <div class="col-md-2">
-                <label for="cnpj" class="form-label">CNPJ</label>
-                <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="CNPJ"
-                    th:value="${param.cnpj}">
-            </div>
-            <div class="col-md-2">
-                <label for="equipamento" class="form-label">Equipamento</label>
-                <input type="text" class="form-control" id="equipamento" name="equipamento" placeholder="Equipamento"
-                    th:value="${param.equipamento}">
-            </div>
-            <div class="col-md-2">
-                <label for="data" class="form-label">Data</label>
-                <input type="date" class="form-control" id="data" name="data" th:value="${param.data}">
-            </div>
-            <div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.48%;">
-                <button type="submit"
-                    class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-filter me-2"></i> Filtrar
-                </button>
-                <a href="/solicitacoes"
-                    class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-times me-2"></i> Limpar
-                </a>
-            </div>
-        </form>
-
-
-        <div class="container m-2">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nome do Cliente</th>
-                        <th>Empresa</th>
-                        <th>CNPJ</th>
-                        <th>Equipamento(s)</th>
-                        <th>Motivo</th>
-                        <th>Data</th>
-                        <th>Hora</th>
-                        <th>Valor Total</th>  <!-- Nova Coluna -->
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="solicitacao : ${solicitacoes}">
-                        <!-- Nome do Cliente -->
-                        <td th:text="${solicitacao.cliente.nome}">Nome do Cliente</td>
-                        <td th:text="${solicitacao.cliente.empresa}">Empresa</td>
-                        <td th:text="${solicitacao.cliente.cnpjCpf}">CNPJ</td>
-
-                        <!-- Equipamentos -->
-                        <td>
-                            <span th:each="equipamento : ${solicitacao.equipamentos}" th:text="${equipamento.nome}"
-                                class="d-block"></span>
-                        </td>
-
-                        <!-- Descrição -->
-                        <td th:text="${solicitacao.descricao}">Descrição</td>
-
-                        <!-- Data e Hora -->
-                        <td th:text="${solicitacao.data}">Data</td>
-                        <td th:text="${solicitacao.hora}">Hora</td>
-
-                        <!-- Valor Total -->
-                        <td th:text="${#numbers.formatCurrency(solicitacao.valorTotal)}">Valor Total</td>  <!-- Exibe o valor total -->
-
-                        <!-- Ações -->
-                        <td>
-                            <a th:href="@{/solicitacoes/edit/{id}(id=${solicitacao.id})}"
-                                class="btn btn-warning btn-sm">Editar</a>
-                            <a th:href="@{/solicitacoes/delete/{id}(id=${solicitacao.id})}"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
-                            <a href="/home" class="btn btn-info btn-sm">Abrir Orçamento</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 

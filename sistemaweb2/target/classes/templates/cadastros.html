@@ -21,12 +21,12 @@
                 <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs-head">
             </a>
 
-            <h2 class="titulo">Consultas</h2>
+            <h2 class="titulo">Cadastros</h2>
 
             <div class="user-actions">
 
                 <div class="username"><span th:text="${username}"></span></div>
-                
+
                 <a href="/logout">
                     <i class="bi bi-person-circle perfil" style="font-size: 40px;"></i>
 
@@ -37,22 +37,26 @@
                 </a>
             </div>
         </div>
-        
+
     </header>
-    
-    <!-- Botão de Voltar -->
-    <a href="/home" class="return"><i class="bi bi-arrow-return-left"></i></a>
-    
+
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-    <div class="menu">
-        <div class="d-flex flex-wrap justify-content-center">
-            <a href="/materiais" class="btn btn-lg m-2">Materiais</a>
-            <a href="/servicos" class="btn btn-lg m-2">Serviços</a>
-            <a href="/equipamentos" class="btn btn-lg m-2">Equipamentos</a>
-            <a href="/clientes" class="btn btn-lg m-2">Clientes</a>
-            <a href="/users" class="btn btn-lg m-2">Usuários</a>
+    <div class="d-flex align-items-start">
+        <!-- Botão de Voltar -->
+        <a href="/home" class="btn btn-warning ms-4 mt-2 me-1">Voltar</a>
+
+        <div class="container">
+            <div class="menu">
+                <div class="d-flex flex-wrap justify-content-center">
+                    <a href="/materiais" class="btn btn-lg m-2">Materiais</a>
+                    <a href="/servicos" class="btn btn-lg m-2">Serviços</a>
+                    <a href="/equipamentos" class="btn btn-lg m-2">Equipamentos</a>
+                    <a href="/clientes" class="btn btn-lg m-2">Clientes</a>
+                    <a href="/users" class="btn btn-lg m-2">Usuários</a>
+                </div>
+            </div>
         </div>
     </div>
 

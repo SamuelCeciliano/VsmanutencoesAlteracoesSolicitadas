@@ -35,90 +35,95 @@
 			</div>
 		</div>
 	</header>
-	
-	<!-- Botão de Voltar -->
-    <a href="/consultas" class="return"><i class="bi bi-arrow-return-left"></i></a>
 
 	<img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-	<div class="container mt-2">
-		<a class="btn btn-success mb-2" th:href="@{/clientes/new}">
-            <i class="fas fa-plus-circle"></i> Novo Cliente
-        </a>
-		<form method="get" action="/clientes" class="row g-3 mb-3">
-			<div class="col-md-2">
-				<label for="id" class="form-label">ID</label>
-				<input type="number" class="form-control" id="id" name="id" th:value="${param.id}" placeholder="ID">
+	<div class="d-flex align-items-start">
+		<a href="/cadastros" class="btn btn-warning ms-4 mt-2 me-1">Voltar</a>
+
+		<div class="container mt-2 ms-1">
+			<a class="btn btn-success mb-2" th:href="@{/clientes/new}">
+				<i class="fas fa-plus-circle"></i> Novo Cliente
+			</a>
+			<form method="get" action="/clientes" class="row g-3 mb-3">
+				<div class="col-md-2">
+					<label for="id" class="form-label">ID</label>
+					<input type="number" class="form-control" id="id" name="id" th:value="${param.id}" placeholder="ID">
+				</div>
+				<div class="col-md-3">
+					<label for="nome" class="form-label">Nome</label>
+					<input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}"
+						placeholder="Nome">
+				</div>
+				<div class="col-md-3">
+					<label for="cnpjCpf" class="form-label">CNPJ/CPF</label>
+					<input type="text" class="form-control" id="cnpjCpf" name="cnpjCpf" th:value="${param.cnpjCpf}"
+						placeholder="CNPJ/CPF">
+				</div>
+				<div class="col-md-3">
+					<label for="empresa" class="form-label">Empresa</label>
+					<input type="text" class="form-control" id="empresa" name="empresa" th:value="${param.empresa}"
+						placeholder="Empresa">
+				</div>
+				<div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.85%;">
+					<button type="submit"
+						class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+						<i class="fas fa-filter me-2"></i> Filtrar
+					</button>
+					<a href="/clientes"
+						class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
+						<i class="fas fa-times me-2"></i> Limpar
+					</a>
+				</div>
+			</form>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nome</th>
+							<th>CNPJ/CPF</th>
+							<th>Empresa</th>
+							<th>Telefone</th>
+							<th>Email NF</th>
+							<th>Endereço</th>
+							<th>Cidade</th>
+							<th>UF</th>
+							<th>País</th>
+							<th>Status</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente : ${clientes}">
+							<td th:text="${cliente.id}"></td>
+							<td th:text="${cliente.nome}"></td>
+							<td th:text="${cliente.cnpjCpf}"></td>
+							<td th:text="${cliente.empresa}"></td>
+							<td th:text="${cliente.telefone}"></td>
+							<td th:text="${cliente.emailNf}"></td>
+							<td th:text="${cliente.endereco} + ', ' + ${cliente.numero} + ' - ' + ${cliente.bairro}">
+							</td>
+							<td th:text="${cliente.cidade}"></td>
+							<td th:text="${cliente.uf}"></td>
+							<td th:text="${cliente.pais}"></td>
+							<td>
+								<span th:if="${cliente.ativo}" class="badge bg-success">Ativo</span>
+								<span th:if="${!cliente.ativo}" class="badge bg-danger">Inativo</span>
+							</td>
+							<td>
+								<a class="btn btn-warning btn-sm"
+									th:href="@{/clientes/edit/{id}(id=${cliente.id})}">Editar</a>
+								<a class="btn btn-sm mt-1"
+									th:classappend="${cliente.ativo} ? 'btn-danger' : 'btn-success'"
+									th:onclick="'toggleStatus(' + ${cliente.id} + ');'"
+									th:text="${cliente.ativo} ? 'Inativar' : 'Ativar'">
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<div class="col-md-3">
-				<label for="nome" class="form-label">Nome</label>
-				<input type="text" class="form-control" id="nome" name="nome" th:value="${param.nome}"
-					placeholder="Nome">
-			</div>
-			<div class="col-md-3">
-				<label for="cnpjCpf" class="form-label">CNPJ/CPF</label>
-				<input type="text" class="form-control" id="cnpjCpf" name="cnpjCpf" th:value="${param.cnpjCpf}"
-					placeholder="CNPJ/CPF">
-			</div>
-			<div class="col-md-3">
-				<label for="empresa" class="form-label">Empresa</label>
-				<input type="text" class="form-control" id="empresa" name="empresa" th:value="${param.empresa}"
-					placeholder="Empresa">
-			</div>
-			<div class="col-md-1 d-flex flex-column align-items-end p-1" style="margin-top: 3.85%;">
-				<button type="submit" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
-					<i class="fas fa-filter me-2"></i> Filtrar
-				</button>
-				<a href="/clientes" class="btn btn-secondary w-100 d-flex align-items-center justify-content-center">
-					<i class="fas fa-times me-2"></i> Limpar
-				</a>
-			</div>			
-		</form>
-		<div class="table-responsive">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Nome</th>
-						<th>CNPJ/CPF</th>
-						<th>Empresa</th>
-						<th>Telefone</th>
-						<th>Email NF</th>
-						<th>Endereço</th>
-						<th>Cidade</th>
-						<th>UF</th>
-						<th>País</th>
-						<th>Status</th>
-						<th>Ações</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="cliente : ${clientes}">
-						<td th:text="${cliente.id}"></td>
-						<td th:text="${cliente.nome}"></td>
-						<td th:text="${cliente.cnpjCpf}"></td>
-						<td th:text="${cliente.empresa}"></td>
-						<td th:text="${cliente.telefone}"></td>
-						<td th:text="${cliente.emailNf}"></td>
-						<td th:text="${cliente.endereco} + ', ' + ${cliente.numero} + ' - ' + ${cliente.bairro}"></td>
-						<td th:text="${cliente.cidade}"></td>
-						<td th:text="${cliente.uf}"></td>
-						<td th:text="${cliente.pais}"></td>
-						<td>
-							<span th:if="${cliente.ativo}" class="badge bg-success">Ativo</span>
-							<span th:if="${!cliente.ativo}" class="badge bg-danger">Inativo</span>
-						</td>
-						<td>
-							<a class="btn btn-warning btn-sm"
-								th:href="@{/clientes/edit/{id}(id=${cliente.id})}">Editar</a>
-							<a class="btn btn-sm mt-1" th:classappend="${cliente.ativo} ? 'btn-danger' : 'btn-success'"
-								th:onclick="'toggleStatus(' + ${cliente.id} + ');'"
-								th:text="${cliente.ativo} ? 'Inativar' : 'Ativar'">
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
 	</div>
 

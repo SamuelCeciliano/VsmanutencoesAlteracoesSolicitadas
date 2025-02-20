@@ -40,44 +40,46 @@
         </div>
     </header>
 
-    <!-- Botão de Voltar -->
-    <a href="/orcamentos" class="return"><i class="bi bi-arrow-return-left"></i></a>
-    
-    <!--Imagem do fundo-->
-    <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+    <div class="d-flex align-items-start">
+        <!-- Botão de Voltar -->
+        <a href="/orcamentos" class="btn btn-warning ms-4 mt-2 me-1">Voltar</a>
 
-    <div class="container mt-5">
-        <div>
-            <p><strong>ID:</strong> <span th:text="${orcamento.id}"></span></p>
-            <p><strong>Cliente:</strong> <span th:text="${orcamento.cliente.nome}"></span></p>
-            <p><strong>Status:</strong> <span th:text="${orcamento.status}"></span></p>
-            <p><strong>Data de Criação:</strong> <span th:text="${orcamento.dataCriacao}"></span></p>
-            <p><strong>Valor Total:</strong> <span th:text="${orcamento.valorTotal}"></span></p>
+        <!--Imagem do fundo-->
+        <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
+
+        <div class="container mt-5 ms-1">
+            <div>
+                <p><strong>ID:</strong> <span th:text="${orcamento.id}"></span></p>
+                <p><strong>Cliente:</strong> <span th:text="${orcamento.cliente.nome}"></span></p>
+                <p><strong>Status:</strong> <span th:text="${orcamento.status}"></span></p>
+                <p><strong>Data de Criação:</strong> <span th:text="${orcamento.dataCriacao}"></span></p>
+                <p><strong>Valor Total:</strong> <span th:text="${orcamento.valorTotal}"></span></p>
+            </div>
+
+            <h4>Serviços</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Serviço</th>
+                        <th>Horas</th>
+                        <th>Preço Unitário</th>
+                        <th>Materiais</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="servicoOrcamento : ${orcamento.servicos}">
+                        <td th:text="${servicoOrcamento.servico.nome}"></td>
+                        <td th:text="${servicoOrcamento.quantidadeHoras}"></td>
+                        <td th:text="${servicoOrcamento.precoUnitario}"></td>
+                        <td>
+                            <ul>
+                                <li th:each="material : ${servicoOrcamento.materiais}" th:text="${material.nome}"></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
-        <h4>Serviços</h4>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Serviço</th>
-                    <th>Horas</th>
-                    <th>Preço Unitário</th>
-                    <th>Materiais</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="servicoOrcamento : ${orcamento.servicos}">
-                    <td th:text="${servicoOrcamento.servico.nome}"></td>
-                    <td th:text="${servicoOrcamento.quantidadeHoras}"></td>
-                    <td th:text="${servicoOrcamento.precoUnitario}"></td>
-                    <td>
-                        <ul>
-                            <li th:each="material : ${servicoOrcamento.materiais}" th:text="${material.nome}"></li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </body>
 

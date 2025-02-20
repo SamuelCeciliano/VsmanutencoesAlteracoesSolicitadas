@@ -37,77 +37,47 @@
                 </a>
             </div>
 
-            <div class="horasMes titulo">
-                <span class="textHora">Valor da hora no mês: </span>
-                <span class="valorHora">60 R$</span>
-            </div>
-        </div>
-
     </header>
 
-    <!-- Botão de Voltar -->
-    <a href="/home" class="return"><i class="bi bi-arrow-return-left"></i></a>
-    
     <!--Imagem do fundo-->
     <img src="/images/logo-vs.png" alt="logo da empresa" class="logovs">
 
-    <div class="container mt-2">
-        <a class="btn btn-success mb-4" th:href="@{/orcamentos/new}"><i class="fas fa-plus-circle"></i> Novo
-            Orçamento</a>
+    <div class="d-flex align-items-start">
+        <!-- Botão de Voltar -->
+        <a href="/home" class="btn btn-warning ms-4 mt-2 me-1">Voltar</a>
 
-        <div class="container mt-2">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h5><span id="valorHora"></span></h5>
-                <button class="btn btn-primary" onclick="mostrarModal()">Alterar Valor Hora</button>
-            </div>
+        <div class="container mt-2 ms-1">
+            <a class="btn btn-success mb-4" th:href="@{/orcamentos/new}"><i class="fas fa-plus-circle"></i> Novo
+                Orçamento</a>
 
-            <!-- Modal para Alteração -->
-            <div id="modalAlterarValor" class="modal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Alterar Valor da Hora</h5>
-                            <button type="button" class="btn-close" onclick="fecharModal()"></button>
-                        </div>
-                        <div class="modal-body">
-                            <label for="novoValor">Novo Valor (R$):</label>
-                            <input type="number" id="novoValor" class="form-control" placeholder="Digite o novo valor">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
-                            <button type="button" class="btn btn-success" onclick="atualizarValor()">Salvar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Status</th>
+                        <th>Data de Criação</th>
+                        <th>Valor Total</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="orcamento : ${orcamentos}">
+                        <td th:text="${orcamento.id}"></td>
+                        <td th:text="${orcamento.cliente.nome}"></td>
+                        <td th:text="${orcamento.status}"></td>
+                        <td th:text="${orcamento.dataCriacao}"></td>
+                        <td th:text="${orcamento.valorTotal}"></td>
+                        <td>
+                            <a th:href="@{/orcamentos/{id}(id=${orcamento.id})}" class="btn btn-info">Ver Detalhes</a>
+                            <a th:href="@{/orcamentos/edit/{id}(id=${orcamento.id})}" class="btn btn-warning">Editar</a>
+                            <a th:href="@{/orcamentos/delete/{id}(id=${orcamento.id})}"
+                                class="btn btn-danger">Excluir</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Status</th>
-                    <th>Data de Criação</th>
-                    <th>Valor Total</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="orcamento : ${orcamentos}">
-                    <td th:text="${orcamento.id}"></td>
-                    <td th:text="${orcamento.cliente.nome}"></td>
-                    <td th:text="${orcamento.status}"></td>
-                    <td th:text="${orcamento.dataCriacao}"></td>
-                    <td th:text="${orcamento.valorTotal}"></td>
-                    <td>
-                        <a th:href="@{/orcamentos/{id}(id=${orcamento.id})}" class="btn btn-info">Ver Detalhes</a>
-                        <a th:href="@{/orcamentos/edit/{id}(id=${orcamento.id})}" class="btn btn-warning">Editar</a>
-                        <a th:href="@{/orcamentos/delete/{id}(id=${orcamento.id})}" class="btn btn-danger">Excluir</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </body>
 <script>
