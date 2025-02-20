@@ -100,7 +100,7 @@
                             <td th:text="${material.nome}"></td>
                             <td th:text="${material.marca}"></td>
                             <td th:text="${material.modelo}"></td>
-                            <td th:text="${#numbers.formatCurrency(material.valorUnitario)}"></td>
+                            <td th:text="${'R$' + #numbers.formatDecimal(material.valorUnitario,1,2)}"></td>
                             <td>
                                 <a class="btn btn-warning btn-sm"
                                     th:href="@{/materiais/edit/{id}(id=${material.id})}">Editar</a>

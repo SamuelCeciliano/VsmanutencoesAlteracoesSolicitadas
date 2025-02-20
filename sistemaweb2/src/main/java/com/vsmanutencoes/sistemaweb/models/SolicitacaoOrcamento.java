@@ -21,6 +21,12 @@ public class SolicitacaoOrcamento {
     @ManyToMany
     private List<Equipamento> equipamentos;
 
+    @ManyToMany
+    private List<Servico> servicos;
+
+    @ManyToMany
+    private List<Material> materiais;
+
     private LocalDate data;
 
     private LocalTime hora;
@@ -79,6 +85,35 @@ public class SolicitacaoOrcamento {
     public void setEquipamentos(List<Equipamento> equipamentos) {
         this.equipamentos = equipamentos;
     }
+
+    /**
+     * @return
+     */
+    public List<Material> getMateriais() {
+        return materiais;
+    }
+
+    /**
+     * @param materiais
+     */
+    public void setMateriais(List<Material> materiais) {
+        this.materiais = materiais;
+    }
+
+    /**
+     * @return
+     */
+    public List<Servico> getServicos() {
+        return servicos;
+    }
+
+    /**
+     * @param servicos
+     */
+    public void setServicos(List<Servico> servicos) {
+        this.servicos = servicos;
+    }
+
 
     /**
      * @return
