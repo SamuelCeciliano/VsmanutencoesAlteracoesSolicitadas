@@ -24,10 +24,10 @@ public class HomeController {
         return "logout";
     }
 
-    @GetMapping("/consultas")
-    public String consultas(Model model, Principal principal) {
+    @GetMapping("/cadastros")
+    public String cadastros(Model model, Principal principal) {
         String username = principal.getName();
         model.addAttribute("username", username);
-        return "consultas"; 
+        return "cadastros"; 
     }
 }
