@@ -26,7 +26,6 @@ public class Cliente {
     @NotEmpty(message = "O CNPJ/CPF é obrigatório")
     private String cnpjCpf;
 
-    @NotEmpty(message = "A empresa é obrigatória")
     private String empresa;
 
     @NotEmpty(message = "O telefone é obrigatório")
