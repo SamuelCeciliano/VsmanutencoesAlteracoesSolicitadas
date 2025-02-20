@@ -59,6 +59,15 @@
                 </select>
             </div>
 
+            <!-- Serviço Dropdown (Multi Select) -->
+            <div class="mb-3">
+                <label for="servicos">Serviços</label>
+                <select name="servicoIds" class="form-select" multiple required>
+                    <option th:each="servico : ${servicos}" th:value="${servico.id}"
+                        th:text="${servico.nome}"></option>
+                </select>
+            </div>
+
             <!-- Materiais -->
             <div class="mb-3">
                 <label for="materiais">Materiais</label>
@@ -66,7 +75,7 @@
                     <input type="checkbox" name="materialIds" th:value="${material.id}"
                         th:id="${'material-' + material.id}" />
                     <label th:for="${'material-' + material.id}"
-                        th:text="${material.nome + ' (' + #numbers.formatCurrency(material.valorUnitario) + ')'}"></label>
+                        th:text="${material.nome + ' (R$' + #numbers.formatDecimal(material.valorUnitario,1,2) + ')'}"></label>
                     <br>
                     <label for="quantidade" class="form-label">Quantidade:</label> <!-- Label "Quantidade" -->
                     <input type="number" name="quantidades" class="quantidade-input" value="0" min="0"

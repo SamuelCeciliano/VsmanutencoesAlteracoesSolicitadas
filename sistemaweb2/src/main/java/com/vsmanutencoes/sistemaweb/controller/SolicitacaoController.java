@@ -2,10 +2,13 @@ package com.vsmanutencoes.sistemaweb.controller;
 
 import com.vsmanutencoes.sistemaweb.models.Cliente;
 import com.vsmanutencoes.sistemaweb.models.Equipamento;
+import com.vsmanutencoes.sistemaweb.models.Material;
+import com.vsmanutencoes.sistemaweb.models.Servico;
 import com.vsmanutencoes.sistemaweb.models.SolicitacaoOrcamento;
 import com.vsmanutencoes.sistemaweb.service.ClienteService;
 import com.vsmanutencoes.sistemaweb.service.EquipamentoService;
 import com.vsmanutencoes.sistemaweb.service.MaterialService;
+import com.vsmanutencoes.sistemaweb.service.ServicoService;
 import com.vsmanutencoes.sistemaweb.service.SolicitacaoOrcamentoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class SolicitacaoController {
     
     @Autowired
     private EquipamentoService equipamentoService;
+
+    @Autowired
+    private ServicoService servicoService;
     
     @Autowired
     private MaterialService materialService;
@@ -61,6 +67,7 @@ public class SolicitacaoController {
         model.addAttribute("solicitacao", new SolicitacaoOrcamento());
         model.addAttribute("clientes", clienteService.listarTodosClientes());
         model.addAttribute("equipamentos", equipamentoService.listarTodosEquipamentos());
+        model.addAttribute("servicos", servicoService.listarTodosServicos());
         model.addAttribute("materiais", materialService.listarTodosMateriais()); 
 
         return "solicitacao-form";
@@ -69,13 +76,20 @@ public class SolicitacaoController {
     @PostMapping("/save")
     public String salvarSolicitacao(
         @ModelAttribute("solicitacao") SolicitacaoOrcamento solicitacao,
-        @RequestParam List<Long> equipamentoIds, 
+        @RequestParam List<Long> equipamentoIds,
+        @RequestParam List<Long> servicoIds, 
         @RequestParam Long clienteId, 
         @RequestParam(required = false) List<Long> materialIds, 
         @RequestParam(required = false) List<Integer> quantidades) {
     	
     	List<Equipamento> equipamentoSelecionados = equipamentoService.buscarEquipamentosPorIds(equipamentoIds);
     	solicitacao.setEquipamentos(equipamentoSelecionados);
+
+        List<Servico> servicoSelecionados = servicoService.buscarServicosPorIds(servicoIds);
+    	solicitacao.setServicos(servicoSelecionados);
+
+        List<Material> materialSelecionados = materialService.buscarMateriaisPorIds(materialIds);
+    	solicitacao.setMateriais(materialSelecionados);
     	
     	Cliente cliente = clienteService.buscarClientePorId(clienteId);
         solicitacao.setCliente(cliente);

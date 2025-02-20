@@ -94,11 +94,11 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Nome do Cliente</th>
-                            <th>Empresa</th>
-                            <th>CNPJ</th>
-                            <th>Equipamento(s)</th>
-                            <th>Observação</th>
+                            <th>NOME DO CLIENTE</th>
+                            <th>EQUIPAMENTO</th>
+                            <th>MATERIAL</th>
+                            <th>SERVIÇO</th>
+                            <th>OBSERVAÇÃO</th>
                             <th>Data</th>
                             <th>Hora</th>
                             <th>Valor Total</th> <!-- Nova Coluna -->
@@ -109,8 +109,6 @@
                         <tr th:each="solicitacao : ${solicitacoes}">
                             <!-- Nome do Cliente -->
                             <td th:text="${solicitacao.cliente.nome}">Nome do Cliente</td>
-                            <td th:text="${solicitacao.cliente.empresa}">Empresa</td>
-                            <td th:text="${solicitacao.cliente.cnpjCpf}">CNPJ</td>
 
                             <!-- Equipamentos -->
                             <td>
@@ -118,8 +116,19 @@
                                     class="d-block"></span>
                             </td>
 
-                            <!-- Descrição -->
-                            <td th:text="${solicitacao.descricao}">Descrição</td>
+                            <!-- Materiais -->
+                            <td>
+                                <span th:each="material : ${solicitacao.materiais}" th:text="${material.nome}"
+                                    class="d-block"></span>
+                            </td>
+
+                            <!-- Serviços -->
+                            <td>
+                                <span th:each="servico : ${solicitacao.servicos}" th:text="${servico.nome}"
+                                    class="d-block"></span>
+                            </td>
+
+                            <td th:text="${solicitacao.descricao}">Observação</td>
 
                             <!-- Data e Hora -->
                             <td th:text="${solicitacao.data}">Data</td>
