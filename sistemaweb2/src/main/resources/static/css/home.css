@@ -18,7 +18,7 @@ body {
 
 .navbar {
     background-color: white;
-    border: 2px solid #007BFF;
+    border: 2px solid var(--botoes);
     border-top: none;
 }
 
@@ -31,7 +31,7 @@ body {
 
 .nav-item {
     flex: 1;
-    border-right: 2px solid #007BFF;
+    border-right: 2px solid var(--botoes);
 }
 
 .nav-item:last-child {
@@ -39,7 +39,8 @@ body {
 }
 
 .nav-link:hover {
-    background-color: rgba(232.87, 232.87, 232.87, 0.90);
+    background-color: rgba(208, 255, 207, 0.9);
+    color: var(--cor-texto);
 }
 
 .navbar-toggler {
@@ -53,7 +54,7 @@ body {
 .footer {
     background-color: #E0F7FA;
     padding: 10px;
-    border-top: 2px solid #007BFF;
+    border-top: 2px solid var(--botoes);
     width: 100%;
     margin-top: auto;
     font-weight: bold;
