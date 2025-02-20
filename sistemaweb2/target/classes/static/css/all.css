@@ -47,9 +47,16 @@ header {
     color: rgb(176, 0, 0);
 }
 
-.logout-text i {
+.header i  {
     margin-left: 5px;
     font-size: 15px; 
+}
+
+.NewUser{
+    position: absolute; 
+    right: 30px; 
+    top: 90px; 
+    font-weight: 500;
 }
 
 span{

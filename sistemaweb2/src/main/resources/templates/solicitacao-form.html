@@ -29,6 +29,7 @@
                         <i class="fas fa-arrow-left"></i>
                     </div>
                 </a>
+                <a href="/users" class="NewUser"><u>Novo Usuário</u> <i class="fas fa-arrow-left"></i></a>
             </div>
         </div>
     </header>
@@ -67,7 +68,7 @@
                     <label th:for="${'material-' + material.id}"
                         th:text="${material.nome + ' (' + #numbers.formatCurrency(material.valorUnitario) + ')'}"></label>
                     <br>
-                    <label for="quantidade" class="form-label">Quantidade:</label>  <!-- Label "Quantidade" -->
+                    <label for="quantidade" class="form-label">Quantidade:</label> <!-- Label "Quantidade" -->
                     <input type="number" name="quantidades" class="quantidade-input" value="0" min="0"
                         style="width: 70px;" data-valorunitario="${material.valorUnitario}" />
                     <input type="hidden" name="materialNomes" th:value="${material.nome}" />
@@ -86,8 +87,8 @@
                 <span id="valorTotal">R$ 0.00</span>
             </div>
 
-             <!-- Exibe o valor total acima do botão "Salvar" -->
-             <div class="mb-3" style="text-align: right;">
+            <!-- Exibe o valor total acima do botão "Salvar" -->
+            <div class="mb-3" style="text-align: right;">
                 <strong>Valor Total:</strong> <span id="valorTotalDisplay">R$ 0.00</span>
             </div>
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -95,53 +96,53 @@
         </form>
     </div>
     <script>
-		$(document).ready(function () {
-		    // Função para atualizar o subtotal de um material
-		    function atualizarSubtotal(materialRow) {
-		        var valorUnitarioString = materialRow.find(".quantidade-input").data("valorunitario").toString(); //Convertendo para String
-		        valorUnitarioString = valorUnitarioString.replace(",", "."); //Substituindo virgula por ponto
-		        var valorUnitario = parseFloat(valorUnitarioString);
-		        var quantidade = parseInt(materialRow.find(".quantidade-input").val());
+        $(document).ready(function () {
+            // Função para atualizar o subtotal de um material
+            function atualizarSubtotal(materialRow) {
+                var valorUnitarioString = materialRow.find(".quantidade-input").data("valorunitario").toString(); //Convertendo para String
+                valorUnitarioString = valorUnitarioString.replace(",", "."); //Substituindo virgula por ponto
+                var valorUnitario = parseFloat(valorUnitarioString);
+                var quantidade = parseInt(materialRow.find(".quantidade-input").val());
 
-		        //Verificando se valorUnitario é um numero
-		        if (isNaN(valorUnitario)) {
-		            valorUnitario = 0; //Ou outro valor padrão que faça sentido
-		        }
-		        //Verificando se quantidade é um numero
-		        if (isNaN(quantidade)) {
-		            quantidade = 0; //Ou outro valor padrão que faça sentido
-		        }
+                //Verificando se valorUnitario é um numero
+                if (isNaN(valorUnitario)) {
+                    valorUnitario = 0; //Ou outro valor padrão que faça sentido
+                }
+                //Verificando se quantidade é um numero
+                if (isNaN(quantidade)) {
+                    quantidade = 0; //Ou outro valor padrão que faça sentido
+                }
 
-		        var subtotal = valorUnitario * quantidade;
-		        materialRow.find(".subtotal").text("Subtotal: R$ " + subtotal.toFixed(2));
-		        return subtotal;
-		    }
+                var subtotal = valorUnitario * quantidade;
+                materialRow.find(".subtotal").text("Subtotal: R$ " + subtotal.toFixed(2));
+                return subtotal;
+            }
 
-		    // Função para atualizar o valor total
-		    function atualizarValorTotal() {
-		        var valorTotal = 0;
-		        $(".material-row").each(function () {
-		            valorTotal += atualizarSubtotal($(this));
-		        });
-		        $("#valorTotal").text("R$ " + valorTotal.toFixed(2));
-		         // Atualiza o valor total exibido acima do botão "Salvar"
-		         $("#valorTotalDisplay").text("R$ " + valorTotal.toFixed(2));
-		    }
+            // Função para atualizar o valor total
+            function atualizarValorTotal() {
+                var valorTotal = 0;
+                $(".material-row").each(function () {
+                    valorTotal += atualizarSubtotal($(this));
+                });
+                $("#valorTotal").text("R$ " + valorTotal.toFixed(2));
+                // Atualiza o valor total exibido acima do botão "Salvar"
+                $("#valorTotalDisplay").text("R$ " + valorTotal.toFixed(2));
+            }
 
-		    // Evento para atualizar o subtotal quando a quantidade é alterada
-		    $(".quantidade-input").on("input", function () {
-		        atualizarSubtotal($(this).closest(".material-row"));
-		        atualizarValorTotal();
-		    });
+            // Evento para atualizar o subtotal quando a quantidade é alterada
+            $(".quantidade-input").on("input", function () {
+                atualizarSubtotal($(this).closest(".material-row"));
+                atualizarValorTotal();
+            });
 
-		    // Evento para atualizar o valor total quando um material é selecionado/deselecionado
-		    $("input[name='materialIds']").on("change", function () {
-		        atualizarValorTotal();
-		    });
+            // Evento para atualizar o valor total quando um material é selecionado/deselecionado
+            $("input[name='materialIds']").on("change", function () {
+                atualizarValorTotal();
+            });
 
-		    // Inicializa o valor total
-		    atualizarValorTotal();
-		});
+            // Inicializa o valor total
+            atualizarValorTotal();
+        });
     </script>
 </body>
 
