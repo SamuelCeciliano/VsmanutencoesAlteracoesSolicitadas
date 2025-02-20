@@ -65,6 +65,7 @@
                 <div class="col-md-6 mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" id="email" th:field="*{email}" class="form-control" placeholder="Email" />
+                    <div id="emailError" class="text-danger mt-1" style="display: none;"></div>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -75,8 +76,8 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="telefone" class="form-label">Telefone</label>
-                    <input type="text" id="telefone" th:field="*{telefone}" class="form-control"
-                        placeholder="Telefone para contato" required />
+                    <input type="tel" id="telefone" th:field="*{telefone}" class="form-control"
+                        placeholder="Telefone para contato" maxlength="14" required />
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -87,7 +88,9 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="site" class="form-label">Site</label>
-                    <input type="url" id="site" th:field="*{site}" class="form-control" placeholder="Site" />
+                    <input type="text" id="site" th:field="*{site}" class="form-control" placeholder="Site" />
+                    <div id="site-error" class="text-danger" style="display:none;">Por favor, insira uma URL válida (com
+                        uma extensão como .com, .net, etc.).</div>
                 </div>
 
                 <div class="col-md-4 mb-3">
@@ -224,7 +227,7 @@
                             document.getElementById("bairro").value = data.bairro || "";
                             document.getElementById("endereco").value = data.logradouro || "";
                             document.getElementById("pais").value = data.pais || "Brasil";
-                            
+
                             // Adiciona classe de sucesso
                             this.classList.add("is-valid");
                         } else {
@@ -342,6 +345,85 @@
 
             return true;
         }
+
+        //Validação de e-mail
+        document.addEventListener("DOMContentLoaded", function () {
+            const emailInput = document.getElementById("email");
+            const emailError = document.getElementById("emailError");
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", function (event) {
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|net|org|edu|gov|br|info|io)$/;
+
+                if (!emailRegex.test(emailInput.value)) {
+                    event.preventDefault(); // Impede o envio do formulário
+                    emailError.textContent = "Por favor, insira um e-mail com um domínio válido e uma extensão permitida.";
+                    emailError.style.display = "block";
+                    emailInput.focus();
+                } else {
+                    emailError.style.display = "none";
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const telefoneInput = document.getElementById("telefone");
+
+            telefoneInput.addEventListener("input", function () {
+                this.value = this.value.replace(/[^+\d]/g, ""); // Permite apenas números e "+"
+            });
+
+            telefoneInput.addEventListener("blur", function () {
+                validarTelefone();
+            });
+
+            // Validação de Telefone
+            function validarTelefone() {
+                const telefone = telefoneInput.value.trim();
+                const telefoneRegex = /^\+\d{2}\d{2}\d{8,9}$/; // Padrão +XX XX 99999999 ou 999999999
+                let errorMessage = document.getElementById("telefone-error");
+
+                if (!telefoneRegex.test(telefone)) {
+                    if (!errorMessage) {
+                        errorMessage = document.createElement("div");
+                        errorMessage.id = "telefone-error";
+                        errorMessage.className = "text-danger mt-1";
+                        telefoneInput.insertAdjacentElement("afterend", errorMessage);
+                    }
+                    errorMessage.textContent = "Número inválido. Use o formato: +55XX999999999.";
+                    telefoneInput.classList.add("is-invalid");
+                    telefoneInput.focus();
+                } else {
+                    if (errorMessage) {
+                        errorMessage.remove();
+                    }
+                    telefoneInput.classList.remove("is-invalid");
+                }
+            }
+        });
+
+        //Valida Site
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var siteField = document.getElementById('site');
+            var siteError = document.getElementById('site-error');
+            var siteValue = siteField.value;
+
+            // Expressão regular para validar a URL
+            var sitePattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(\/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?$/;
+
+            if (!sitePattern.test(siteValue)) {
+                // Se a URL não for válida, impede o envio e exibe a mensagem de erro
+                event.preventDefault();
+                siteError.style.display = 'block';
+                siteField.classList.add('is-invalid');
+                siteField.focus();
+            } else {
+                // Se a URL for válida, limpa a mensagem de erro
+                siteError.style.display = 'none';
+                siteField.classList.remove('is-invalid');
+            }
+        });
+
     </script>
 </body>
 
