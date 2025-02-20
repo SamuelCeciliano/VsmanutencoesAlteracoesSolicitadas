@@ -1,7 +1,7 @@
 package com.vsmanutencoes.sistemaweb.models;
 
 import jakarta.persistence.*;
-import java.util.List;
+//import java.util.List;
 
 @Entity
 @Table(name = "equipamentos")
@@ -16,9 +16,9 @@ public class Equipamento {
     private String marca;
 
     // Relacionamento com Servico
-    @ManyToMany
+    /*@ManyToMany
     private List<Servico> servicos;
-
+    */
     public Equipamento() {
     	super();
     }
@@ -52,10 +52,12 @@ public class Equipamento {
         this.marca = marca;
     }
 
+    /* 
     public List<Servico> getServicos() {
         return servicos;
     }
     public void setServicos(List<Servico> servicos) {
         this.servicos = servicos;
     }
+    */
 }

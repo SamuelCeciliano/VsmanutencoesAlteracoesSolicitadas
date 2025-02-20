@@ -89,7 +89,7 @@
                     <th>Nome</th>
                     <th>Modelo</th>
                     <th>Marca</th>
-                    <th>Serviços</th>
+                    <!-- <th>Serviços</th> -->
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -99,11 +99,13 @@
                     <td th:text="${equipamento.nome}"></td>
                     <td th:text="${equipamento.modelo}"></td>
                     <td th:text="${equipamento.marca}"></td>
-                    <td>
-                        <ul>
-                            <li th:each="servico : ${equipamento.servicos}" th:text="${servico.nome}"></li>
-                        </ul>
-                    </td>
+                    <!--
+                                        <td>
+                                            <ul>
+                                                <li th:each="servico : ${equipamento.servicos}" th:text="${servico.nome}"></li>
+                                            </ul>
+                                        </td>
+                    -->
                     <td>
                         <a class="btn btn-warning btn-sm"
                             th:href="@{/equipamentos/edit/{id}(id=${equipamento.id})}">Editar</a>

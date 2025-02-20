@@ -50,18 +50,19 @@ public class EquipamentoController {
         String username = principal.getName();
         model.addAttribute("username", username);
         model.addAttribute("equipamento", new Equipamento());
-        model.addAttribute("servicos", servicoService.listarTodosServicos()); // Lista de serviços para o formulário
+        //model.addAttribute("servicos", servicoService.listarTodosServicos()); // Lista de serviços para o formulário
         return "equipamento-form";
     }
 
     @PostMapping("/save")
-    public String salvarEquipamento(@ModelAttribute("equipamento") Equipamento equipamento,
-                                     @RequestParam List<Long> servicoIds) {
+    public String salvarEquipamento(@ModelAttribute("equipamento") Equipamento equipamento
+                                     //,@RequestParam List<Long> servicoIds
+                            ) {
         // Carregar os serviços selecionados
-        List<Servico> servicosSelecionados = servicoService.buscarServicosPorIds(servicoIds);
+        //List<Servico> servicosSelecionados = servicoService.buscarServicosPorIds(servicoIds);
         
         // Atribuir os serviços ao equipamento
-        equipamento.setServicos(servicosSelecionados);
+        //equipamento.setServicos(servicosSelecionados);
 
         // Salvar o equipamento com os serviços associados
         equipamentoService.salvarEquipamento(equipamento);
@@ -76,7 +77,7 @@ public class EquipamentoController {
         model.addAttribute("username", username);
         Equipamento equipamento = equipamentoService.buscarEquipamentoPorId(id);
         model.addAttribute("equipamento", equipamento);
-        model.addAttribute("servicos", servicoService.listarTodosServicos()); // Lista de serviços para o formulário
+        //model.addAttribute("servicos", servicoService.listarTodosServicos()); // Lista de serviços para o formulário
         return "equipamento-form";
     }
 

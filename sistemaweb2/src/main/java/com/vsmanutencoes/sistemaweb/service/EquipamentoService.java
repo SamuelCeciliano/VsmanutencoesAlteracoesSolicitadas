@@ -43,7 +43,7 @@ public class EquipamentoService {
         equipamento.setNome(equipamentoAtualizado.getNome());
         equipamento.setModelo(equipamentoAtualizado.getModelo());
         equipamento.setMarca(equipamentoAtualizado.getMarca());
-        equipamento.setServicos(equipamentoAtualizado.getServicos());
+        //equipamento.setServicos(equipamentoAtualizado.getServicos());
         return equipamentoRepositorio.save(equipamento);
     }
 
